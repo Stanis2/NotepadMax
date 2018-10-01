@@ -14,6 +14,8 @@ public class Main {
     private static List<Person> info = new ArrayList<>();
 
     public static void main(String[] args) {
+        loadContacts();
+        System.out.println("Type 'Help' for command list.");
         while (true) {
             System.out.println("Enter a command:");
             String cmd = scanner.next();
@@ -27,6 +29,9 @@ public class Main {
                 case "Delete":
                     delete();
                     break;
+                case  "Help":
+                    help();
+                    break;
                 case "Exit":
                     return;
                 default:
@@ -36,18 +41,29 @@ public class Main {
         }
     }
 
+    private static void loadContacts() {
+        File file = new File("person_data.txt");
+        try (Scanner in = new Scanner(file)) {
+            while (in.hasNext()) {
+                Person p = new Person();
+                p.setFirstName() = in.next();
+                info.add(p);
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading file.");
+        }
+    }
+
+    private static void help() {
+        System.out.println("Create - creates a new contact.");
+        System.out.println("List - list of all contacts.");
+        System.out.println("Delete - deletes a contact by ID.");
+    }
+
     private static void delete() {
         System.out.println("Enter ID number.");
         int deleteId = scanner.nextInt();
-        int id = findId();
-        info.remove(id);
-    }
-
-    private static int findId() {
-        return info.stream()
-                .map(r -> r.getId())
-                .max(Comparator.naturalOrder())
-                .get();
+        info.remove(deleteId - 1);
     }
 
     private static void list() {
@@ -73,7 +89,12 @@ public class Main {
 
         System.out.println("Enter a firstname.");
         String firstName = scanner.next();
-        p.setFirstName(firstName);
+        if (firstName.startsWith("\"")){
+            String secondName = scanner.next();
+            p.setFirstName(firstName + " " + secondName);
+        } else {
+            p.setFirstName(firstName);
+        }
 
         System.out.println("Enter a lastname.");
         String lastName = scanner.next();
