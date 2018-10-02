@@ -1,19 +1,17 @@
 package tsi.stanislaw.notepadmax;
 
-public class Person {
-    private static int count = 0;
-    private int id;
+public class Person extends Record {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String contactComment;
 
-    public Person() {
-        count++;
-        id = count;
+    public String getContactComment() {
+        return contactComment;
     }
 
-    public int getId() {
-        return id;
+    public void setContactComment(String contactComment) {
+        this.contactComment = contactComment;
     }
 
     public String getFirstName() {
@@ -43,11 +41,18 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", count='" + count + '\'' +
+                ", contactComment='" + contactComment + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean hasSubstring(String str) {
+        return firstName.contains(str)
+                || lastName.contains(str)
+                || phoneNumber.contains(str)
+                || contactComment.contains(str);
     }
 }
