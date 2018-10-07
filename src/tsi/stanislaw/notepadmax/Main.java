@@ -14,6 +14,10 @@ public class Main {
             System.out.println("Enter a command:");
             String cmd = scanner.next();
             switch (cmd) {
+                case "ar":
+                case "Add-reminder":
+                    createReminder();
+                    break;
                 case "Search":
                 case "se":
                     searchInfo();
@@ -41,6 +45,26 @@ public class Main {
                     System.out.println("Wrong command!");
             }
         }
+    }
+
+    private static void createReminder() {
+        Reminder r = new Reminder();
+
+        System.out.println("Enter your text to remind.");
+        String remindNote = askString();
+        r.setRemNote(remindNote);
+
+        System.out.println("Enter your date to remind.");
+        String remindDate = askString();
+        r.setRemDate(remindDate);
+
+        System.out.println("Enter your time to remind.");
+        String remindTime = askString();
+        r.setRemTime(remindTime);
+
+        recordList.add(r);
+
+        System.out.println(r);
     }
 
     private static void searchInfo() {
