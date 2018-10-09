@@ -1,10 +1,21 @@
 package tsi.stanislaw.notepadmax;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    public final static String DATE_FORMAT = "dd.MM.yyyy";
+    public final static DateTimeFormatter DATE_FORMATTER
+            = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
+    public final static String TIME_FORMAT = "HH:mm";
+    public final static DateTimeFormatter TIME_FORMATTER
+            = DateTimeFormatter.ofPattern(TIME_FORMAT);
+
     private static Scanner scanner = new Scanner(System.in);
     private static List<Record> recordList = new ArrayList<>();
 
@@ -61,12 +72,12 @@ public class Main {
 
     private static void help() {
         System.out.println("Add-contact or ac - creates a new contact.");
-        System.out.println("Add-note or an - adds a new note.");
+        System.out.println("Add-note or an - creates a new note.");
         System.out.println("Add-reminder or ar - creates a new reminder with note.");
         System.out.println("List - list of all IDs, contacts, notes and reminders.");
         System.out.println("Search or se - find a matching text or character.");
         System.out.println("Delete - deletes a content by ID.");
-        System.out.println("Use quotes to add more information.");
+        System.out.println("Use quotes to add more/longer information.");
         System.out.println("Date and time format - dd.mm.yyyy - hh:hh - only numbers.");
     }
 
@@ -99,28 +110,6 @@ public class Main {
         }
     }
 
-    public static String askDate() {
-        while (true) {
-            String date = askString();
-            if (date.length() == 10) {
-                return date;
-            } else {
-                System.out.println("Wrong date format. (dd.mm.yyyy)");
-            }
-        }
-    }
-
-    public static String askTime() {
-        while (true) {
-            String time = askString();
-            if (time.length() == 5) {
-                return time;
-            } else {
-                System.out.println("Wrong time format. (hh:hh)");
-            }
-        }
-    }
-
     public static String askString() {
         var result = new ArrayList<String>();
         var word = scanner.next();
@@ -136,6 +125,18 @@ public class Main {
         } else {
             return word;
         }
+    }
+
+    public static LocalDate askDate() {
+            String d = askString();
+            LocalDate date = LocalDate.parse(d, DATE_FORMATTER);
+            return date;
+    }
+
+    public static LocalTime askTime() {
+        String t = askString();
+        LocalTime time = LocalTime.parse(t, TIME_FORMATTER);
+        return time;
     }
 
     private static void createPerson() {

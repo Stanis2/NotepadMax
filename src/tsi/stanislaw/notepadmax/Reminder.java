@@ -1,23 +1,26 @@
 package tsi.stanislaw.notepadmax;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Reminder extends Notes {
-    private String remTime;
-    private String remDate;
+    private LocalTime remTime;
+    private LocalDate remDate;
     private String remNote;
 
-    public String getRemTime() {
+    public LocalTime getRemTime() {
         return remTime;
     }
 
-    public void setRemTime(String remTime) {
+    public void setRemTime(LocalTime remTime) {
         this.remTime = remTime;
     }
 
-    public String getRemDate() {
+    public LocalDate getRemDate() {
         return remDate;
     }
 
-    public void setRemDate(String remDate) {
+    public void setRemDate(LocalDate remDate) {
         this.remDate = remDate;
     }
 
@@ -33,8 +36,8 @@ public class Reminder extends Notes {
     public String toString() {
         return "Reminder{" +
                 "id='" + getId() + '\'' +
-                "remTime='" + remTime + '\'' +
-                ", remDate='" + remDate + '\'' +
+                "remTime='" + remTime.format(Main.TIME_FORMATTER) + '\'' +
+                ", remDate='" + remDate.format(Main.DATE_FORMATTER) + '\'' +
                 ", remNote='" + remNote + '\'' +
                 '}';
     }
@@ -44,8 +47,8 @@ public class Reminder extends Notes {
     @Override
     public boolean hasSubstring(String str) {
         return remNote.contains(str)
-                || remDate.contains(str)
-                || remTime.contains(str);
+                || remDate.format(Main.DATE_FORMATTER).contains(str)
+                || remTime.format(Main.TIME_FORMATTER).contains(str);
     }
 
     @Override
