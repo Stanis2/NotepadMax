@@ -56,4 +56,19 @@ public class Person extends Record {
                 || phoneNumber.contains(str)
                 || contactComment.contains(str);
     }
+
+    @Override
+    public void askQuestions() {
+        System.out.println("Enter a firstname.");
+        firstName = Main.askString();
+
+        System.out.println("Enter a lastname.");
+        lastName = Main.askString();
+
+        System.out.println("Enter a phone number.");
+        phoneNumber = Main.askPhone();
+
+        System.out.println("Enter a comment.");
+        contactComment = Main.askString();
+    }
 }

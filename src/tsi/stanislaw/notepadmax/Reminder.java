@@ -39,10 +39,24 @@ public class Reminder extends Notes {
                 '}';
     }
 
+
+
     @Override
     public boolean hasSubstring(String str) {
         return remNote.contains(str)
                 || remDate.contains(str)
                 || remTime.contains(str);
+    }
+
+    @Override
+    public void askQuestions() {
+        System.out.println("Enter your text to remind.");
+        remNote = Main.askString();
+
+        System.out.println("Enter your date.");
+        remDate = Main.askDate();
+
+        System.out.println("Enter your time.");
+        remTime = Main.askTime();
     }
 }

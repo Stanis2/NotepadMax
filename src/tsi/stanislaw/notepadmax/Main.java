@@ -18,8 +18,8 @@ public class Main {
                 case "Add-reminder":
                     createReminder();
                     break;
-                case "Search":
                 case "se":
+                case "Search":
                     searchInfo();
                     break;
                 case "ac":
@@ -36,7 +36,7 @@ public class Main {
                 case "Delete":
                     delete();
                     break;
-                case  "Help":
+                case "Help":
                     help();
                     break;
                 case "Exit":
@@ -45,26 +45,6 @@ public class Main {
                     System.out.println("Wrong command!");
             }
         }
-    }
-
-    private static void createReminder() {
-        Reminder r = new Reminder();
-
-        System.out.println("Enter your text to remind.");
-        String remindNote = askString();
-        r.setRemNote(remindNote);
-
-        System.out.println("Enter your date.");
-        String remindDate = askString();
-        r.setRemDate(remindDate);
-
-        System.out.println("Enter your time.");
-        String remindTime = askString();
-        r.setRemTime(remindTime);
-
-        recordList.add(r);
-
-        System.out.println(r);
     }
 
     private static void searchInfo() {
@@ -77,19 +57,6 @@ public class Main {
                 System.out.println("Not found.");
             }
         }
-    }
-
-    private static void createNote() {
-        System.out.println("Enter your text.");
-        Notes n = new Notes();
-
-        String notes = askString();
-        n.setNewNotes(notes);
-
-        recordList.add(n);
-
-        System.out.println(n);
-
     }
 
     private static void help() {
@@ -121,31 +88,7 @@ public class Main {
         }
     }
 
-    private static void createPerson() {
-        Person p = new Person();
-
-        System.out.println("Enter a firstname.");
-        String firstName = askString();
-        p.setFirstName(firstName);
-
-        System.out.println("Enter a lastname.");
-        String lastName = askString();
-        p.setLastName(lastName);
-
-        System.out.println("Enter a phone number.");
-        String phoneNumber = askPhone();
-        p.setPhoneNumber(phoneNumber);
-
-        System.out.println("Enter a comment.");
-        String comment = askString();
-        p.setContactComment(comment);
-
-        recordList.add(p);
-
-        System.out.println(p);
-    }
-
-    private static String askPhone() {
+    public static String askPhone() {
         while (true) {
             String phone = askString();
             if (phone.length() >= 4) {
@@ -156,7 +99,29 @@ public class Main {
         }
     }
 
-    private static String askString() {
+    public static String askDate() {
+        while (true) {
+            String date = askString();
+            if (date.length() == 10) {
+                return date;
+            } else {
+                System.out.println("Wrong date format. (dd.mm.yyyy)");
+            }
+        }
+    }
+
+    public static String askTime() {
+        while (true) {
+            String time = askString();
+            if (time.length() == 5) {
+                return time;
+            } else {
+                System.out.println("Wrong time format. (hh:hh)");
+            }
+        }
+    }
+
+    public static String askString() {
         var result = new ArrayList<String>();
         var word = scanner.next();
         if (word.startsWith("\"")) {
@@ -171,5 +136,29 @@ public class Main {
         } else {
             return word;
         }
+    }
+
+    private static void createPerson() {
+        Person p = new Person();
+        p.askQuestions();
+
+        recordList.add(p);
+        System.out.println(p);
+    }
+
+    private static void createNote() {
+        Notes n = new Notes();
+        n.askQuestions();
+
+        recordList.add(n);
+        System.out.println(n);
+    }
+
+    private static void createReminder() {
+        Reminder r = new Reminder();
+        r.askQuestions();
+
+        recordList.add(r);
+        System.out.println(r);
     }
 }

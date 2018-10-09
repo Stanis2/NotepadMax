@@ -23,4 +23,10 @@ public class Notes extends Record {
     public boolean hasSubstring(String str) {
         return newNotes.contains(str);
     }
+
+    @Override
+    public void askQuestions() {
+        System.out.println("Enter your text.");
+        newNotes = Main.askString();
+    }
 }
