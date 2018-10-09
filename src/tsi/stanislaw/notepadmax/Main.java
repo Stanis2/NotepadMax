@@ -54,11 +54,11 @@ public class Main {
         String remindNote = askString();
         r.setRemNote(remindNote);
 
-        System.out.println("Enter your date to remind.");
+        System.out.println("Enter your date.");
         String remindDate = askString();
         r.setRemDate(remindDate);
 
-        System.out.println("Enter your time to remind.");
+        System.out.println("Enter your time.");
         String remindTime = askString();
         r.setRemTime(remindTime);
 
@@ -73,6 +73,8 @@ public class Main {
         for (Record r : recordList) {
             if (r.hasSubstring(str)) {
                 System.out.println(r);
+            } else {
+                System.out.println("Not found.");
             }
         }
     }
@@ -91,12 +93,14 @@ public class Main {
     }
 
     private static void help() {
-        System.out.println("Add-note or an - adds a new note.");
         System.out.println("Add-contact or ac - creates a new contact.");
-        System.out.println("List - list of all contacts.");
+        System.out.println("Add-note or an - adds a new note.");
+        System.out.println("Add-reminder or ar - creates a new reminder with note.");
+        System.out.println("List - list of all IDs, contacts, notes and reminders.");
         System.out.println("Search or se - find a matching text or character.");
-        System.out.println("Delete - deletes a contact by ID.");
+        System.out.println("Delete - deletes a content by ID.");
         System.out.println("Use quotes to add more information.");
+        System.out.println("Date and time format - dd.mm.yyyy - hh:hh - only numbers.");
     }
 
     private static void delete() {
@@ -129,7 +133,7 @@ public class Main {
         p.setLastName(lastName);
 
         System.out.println("Enter a phone number.");
-        String phoneNumber = askString();
+        String phoneNumber = askPhone();
         p.setPhoneNumber(phoneNumber);
 
         System.out.println("Enter a comment.");
@@ -139,6 +143,17 @@ public class Main {
         recordList.add(p);
 
         System.out.println(p);
+    }
+
+    private static String askPhone() {
+        while (true) {
+            String phone = askString();
+            if (phone.length() >= 4) {
+                return phone;
+            } else {
+                System.out.println("Phone number is too short!");
+            }
+        }
     }
 
     private static String askString() {

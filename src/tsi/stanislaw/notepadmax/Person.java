@@ -41,6 +41,7 @@ public class Person extends Record {
     @Override
     public String toString() {
         return "Person{" +
+                "id='" + getId() + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +

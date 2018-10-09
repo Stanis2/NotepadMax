@@ -32,6 +32,7 @@ public class Reminder extends Notes {
     @Override
     public String toString() {
         return "Reminder{" +
+                "id='" + getId() + '\'' +
                 "remTime='" + remTime + '\'' +
                 ", remDate='" + remDate + '\'' +
                 ", remNote='" + remNote + '\'' +

@@ -14,6 +14,7 @@ public class Notes extends Record {
     @Override
     public String toString() {
         return "Notes{" +
+                "id='" + getId() + '\'' +
                 "newNotes='" + newNotes + '\'' +
                 '}';
     }
