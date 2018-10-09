@@ -18,10 +18,6 @@ public class Main {
                 case "Add-reminder":
                     createReminder();
                     break;
-                case "se":
-                case "Search":
-                    searchInfo();
-                    break;
                 case "ac":
                 case "Add-contact":
                     createPerson();
@@ -29,6 +25,10 @@ public class Main {
                 case "an":
                 case "Add-note":
                     createNote();
+                    break;
+                case "se":
+                case "Search":
+                    searchInfo();
                     break;
                 case "List":
                     list();
@@ -140,25 +140,22 @@ public class Main {
 
     private static void createPerson() {
         Person p = new Person();
-        p.askQuestions();
-
-        recordList.add(p);
-        System.out.println(p);
+        addRecord(p);
     }
 
     private static void createNote() {
         Notes n = new Notes();
-        n.askQuestions();
-
-        recordList.add(n);
-        System.out.println(n);
+        addRecord(n);
     }
 
     private static void createReminder() {
         Reminder r = new Reminder();
-        r.askQuestions();
+        addRecord(r);
+    }
 
-        recordList.add(r);
-        System.out.println(r);
+    private static void addRecord(Record p) {
+        p.askQuestions();
+        recordList.add(p);
+        System.out.println(p);
     }
 }
