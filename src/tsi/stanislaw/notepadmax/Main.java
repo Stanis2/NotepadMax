@@ -25,6 +25,10 @@ public class Main {
             System.out.println("Enter a command:");
             String cmd = scanner.next();
             switch (cmd) {
+                case "aa":
+                case "Add-alarm":
+                    createAlarm();
+                    break;
                 case "ar":
                 case "Add-reminder":
                     createReminder();
@@ -74,7 +78,8 @@ public class Main {
         System.out.println("Add-contact or ac - creates a new contact.");
         System.out.println("Add-note or an - creates a new note.");
         System.out.println("Add-reminder or ar - creates a new reminder with note.");
-        System.out.println("List - list of all IDs, contacts, notes and reminders.");
+        System.out.println("Add-alarm or aa - creates a new alarm.");
+        System.out.println("List - list of all IDs, contacts, notes, reminders and alarms.");
         System.out.println("Search or se - find a matching text or character.");
         System.out.println("Delete - deletes a content by ID.");
         System.out.println("Use quotes to add more/longer information.");
@@ -118,7 +123,7 @@ public class Main {
                 result.add(word);
                 if (word.endsWith("\"")) {
                     String join = String.join(" ", result);
-                    return join.substring(1, join.length()-1);
+                    return join.substring(1, join.length() - 1);
                 }
                 word = scanner.next();
             } while (true);
@@ -128,9 +133,9 @@ public class Main {
     }
 
     public static LocalDate askDate() {
-            String d = askString();
-            LocalDate date = LocalDate.parse(d, DATE_FORMATTER);
-            return date;
+        String d = askString();
+        LocalDate date = LocalDate.parse(d, DATE_FORMATTER);
+        return date;
     }
 
     public static LocalTime askTime() {
@@ -152,6 +157,11 @@ public class Main {
     private static void createReminder() {
         Reminder r = new Reminder();
         addRecord(r);
+    }
+
+    private static void createAlarm() {
+        Alarm a = new Alarm();
+        addRecord(a);
     }
 
     private static void addRecord(Record p) {
