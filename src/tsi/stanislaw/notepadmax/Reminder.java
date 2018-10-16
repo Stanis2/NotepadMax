@@ -1,8 +1,10 @@
 package tsi.stanislaw.notepadmax;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-public class Reminder extends Alarm {
+public class Reminder extends Alarm implements Expirable {
     private LocalDate remDate;
 
     public LocalDate getRemDate() {
@@ -23,8 +25,6 @@ public class Reminder extends Alarm {
                 '}';
     }
 
-
-
     @Override
     public boolean hasSubstring(String str) {
         return super.hasSubstring(str)
@@ -38,5 +38,13 @@ public class Reminder extends Alarm {
 
         System.out.println("Enter your date.");
         remDate = Main.askDate();
+    }
+
+    @Override
+    public boolean isExpired() {
+        LocalTime time = getAlarmTime();
+        LocalDateTime dt = LocalDateTime.of(remDate, time);
+        LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(dt);
     }
 }

@@ -23,6 +23,10 @@ public class Main {
             System.out.println("Enter a command:");
             String cmd = scanner.next();
             switch (cmd) {
+                case "exp":
+                case "Expired":
+                    showExp();
+                    break;
                 case "aa":
                 case "Add-alarm":
                     createAlarm();
@@ -63,6 +67,17 @@ public class Main {
         }
     }
 
+    private static void showExp() {
+        for (Record r : recordList.values()) {
+            if (r instanceof Expirable) {
+                Expirable e = (Expirable) r;
+                if (e.isExpired()) {
+                    System.out.println(e);
+                }
+            }
+        }
+    }
+
     private static void searchInfo() {
         System.out.println("Search for what?");
         String str = askString();
@@ -82,7 +97,7 @@ public class Main {
         System.out.println("Add-alarm or aa - creates a new alarm.");
         System.out.println("List - list of all IDs, contacts, notes, reminders and alarms.");
         System.out.println("Show - shows content by ID.");
-        System.out.println("Search or se - find a matching text or character.");
+        System.out.println("Search or se - find a matching text, character or number.");
         System.out.println("Delete - deletes a content by ID.");
         System.out.println("Use quotes to add more/longer information.");
         System.out.println("Date and time format - dd.mm.yyyy - hh:hh - only numbers.");
