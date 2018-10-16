@@ -23,7 +23,8 @@ public class Alarm extends Notes {
 
     @Override
     public boolean hasSubstring(String str) {
-        return alarmTime.format(Main.TIME_FORMATTER).contains(str);
+        return super.hasSubstring(str)
+                || alarmTime.format(Main.TIME_FORMATTER).contains(str);
     }
 
     @Override

@@ -3,9 +3,7 @@ package tsi.stanislaw.notepadmax;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public final static String DATE_FORMAT = "dd.MM.yyyy";
@@ -17,7 +15,7 @@ public class Main {
             = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
     private static Scanner scanner = new Scanner(System.in);
-    private static List<Record> recordList = new ArrayList<>();
+    private static Map<Integer, Record> recordList = new TreeMap<>();
 
     public static void main(String[] args) {
         System.out.println("Type 'Help' for command list.");
@@ -48,6 +46,9 @@ public class Main {
                 case "List":
                     list();
                     break;
+                case "Show":
+                    show();
+                    break;
                 case "Delete":
                     delete();
                     break;
@@ -65,7 +66,7 @@ public class Main {
     private static void searchInfo() {
         System.out.println("Search for what?");
         String str = askString();
-        for (Record r : recordList) {
+        for (Record r : recordList.values()) {
             if (r.hasSubstring(str)) {
                 System.out.println(r);
             } else {
@@ -80,6 +81,7 @@ public class Main {
         System.out.println("Add-reminder or ar - creates a new reminder with note.");
         System.out.println("Add-alarm or aa - creates a new alarm.");
         System.out.println("List - list of all IDs, contacts, notes, reminders and alarms.");
+        System.out.println("Show - shows content by ID.");
         System.out.println("Search or se - find a matching text or character.");
         System.out.println("Delete - deletes a content by ID.");
         System.out.println("Use quotes to add more/longer information.");
@@ -88,18 +90,18 @@ public class Main {
 
     private static void delete() {
         System.out.println("Enter ID number.");
-        int deleteId = scanner.nextInt();
-        for (int i = 0; i < recordList.size(); i++) {
-            Record p = recordList.get(i);
-            if (deleteId == p.getId()) {
-                recordList.remove(i);
-                break;
-            }
-        }
+        int deleteId = askInt();
+        recordList.remove(deleteId);
+    }
+
+    private static void show() {
+        System.out.println("Enter ID number.");
+        int showId = askInt();
+        System.out.println(recordList.get(showId));
     }
 
     private static void list() {
-        for (Record p : recordList) {
+        for (Record p : recordList.values()) {
             System.out.println(p);
         }
     }
@@ -111,6 +113,17 @@ public class Main {
                 return phone;
             } else {
                 System.out.println("Phone number is too short!");
+            }
+        }
+    }
+
+    private static int askInt() {
+        while (true) {
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                scanner.next(); // skip wrong input
+                System.out.println("Use only numbers.");
             }
         }
     }
@@ -166,7 +179,7 @@ public class Main {
 
     private static void addRecord(Record p) {
         p.askQuestions();
-        recordList.add(p);
+        recordList.put(p.getId(), p);
         System.out.println(p);
     }
 }
