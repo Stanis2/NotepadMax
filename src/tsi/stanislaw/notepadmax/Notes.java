@@ -15,7 +15,7 @@ public class Notes extends Record {
     public String toString() {
         return "Notes{" +
                 "id='" + getId() + '\'' +
-                "newNotes='" + newNotes + '\'' +
+                ", Note ='" + newNotes + '\'' +
                 '}';
     }
 

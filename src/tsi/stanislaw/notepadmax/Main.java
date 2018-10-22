@@ -23,6 +23,13 @@ public class Main {
             System.out.println("Enter a command:");
             String cmd = scanner.next();
             switch (cmd) {
+                case  "Dismiss":
+                    dismiss();
+                    break;
+                case "Add-pet":
+                case"ap":
+                    createPet();
+                    break;
                 case "exp":
                 case "Expired":
                     showExp();
@@ -67,6 +74,11 @@ public class Main {
         }
     }
 
+    private static void dismiss() {
+        System.out.println("Enter ID to dismiss.");
+
+    }
+
     private static void showExp() {
         for (Record r : recordList.values()) {
             if (r instanceof Expirable) {
@@ -92,6 +104,7 @@ public class Main {
 
     private static void help() {
         System.out.println("Add-contact or ac - creates a new contact.");
+        System.out.println("Add-pet or ap - creates a new pet.");
         System.out.println("Add-note or an - creates a new note.");
         System.out.println("Add-reminder or ar - creates a new reminder with note.");
         System.out.println("Add-alarm or aa - creates a new alarm.");
@@ -99,12 +112,13 @@ public class Main {
         System.out.println("Show - shows content by ID.");
         System.out.println("Search or se - find a matching text, character or number.");
         System.out.println("Delete - deletes a content by ID.");
+        System.out.println("Dismiss - removes reminder by ID.");
         System.out.println("Use quotes to add more/longer information.");
         System.out.println("Date and time format - dd.mm.yyyy - hh:hh - only numbers.");
     }
 
     private static void delete() {
-        System.out.println("Enter ID number.");
+        System.out.println("Enter ID number to delete.");
         int deleteId = askInt();
         recordList.remove(deleteId);
     }
@@ -137,7 +151,7 @@ public class Main {
             try {
                 return scanner.nextInt();
             } catch (InputMismatchException e) {
-                scanner.next(); // skip wrong input
+                scanner.next();
                 System.out.println("Use only numbers.");
             }
         }
@@ -190,6 +204,11 @@ public class Main {
     private static void createAlarm() {
         Alarm a = new Alarm();
         addRecord(a);
+    }
+
+    private static void createPet() {
+        Pet p = new Pet();
+        addRecord(p);
     }
 
     private static void addRecord(Record p) {

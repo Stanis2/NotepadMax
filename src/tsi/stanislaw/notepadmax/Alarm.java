@@ -17,8 +17,8 @@ public class Alarm extends Notes implements Expirable {
     public String toString() {
         return "Alarm{" +
                 "id='" + getId() + '\'' +
-                "newNotes='" + getNewNotes() + '\'' +
-                "remTime=" + alarmTime.format(Main.TIME_FORMATTER) +
+                ", Note ='" + getNewNotes() + '\'' +
+                ", Reminder Time =" + alarmTime.format(Main.TIME_FORMATTER) +
                 '}';
     }
 

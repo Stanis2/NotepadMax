@@ -1,10 +1,21 @@
 package tsi.stanislaw.notepadmax;
 
-public class Person extends Record {
+import java.time.LocalDate;
+
+public class Person extends Record implements Birthday {
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String contactComment;
+    private LocalDate birthdayPerson;
+
+    public LocalDate getBirthdayPerson() {
+        return birthdayPerson;
+    }
+
+    public void setBirthdayPerson(LocalDate birthdayPerson) {
+        this.birthdayPerson = birthdayPerson;
+    }
 
     public String getContactComment() {
         return contactComment;
@@ -42,10 +53,12 @@ public class Person extends Record {
     public String toString() {
         return "Person{" +
                 "id='" + getId() + '\'' +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", contactComment='" + contactComment + '\'' +
+                ", Firstname ='" + firstName + '\'' +
+                ", Lastname ='" + lastName + '\'' +
+                ", Phone Number ='" + phoneNumber + '\'' +
+                ", Birthday ='" + birthday().format(Main.DATE_FORMATTER) + '\'' +
+                ", Comment ='" + contactComment + '\'' +
+                ", Birthday Month ='" + birthdayDay() + '\'' +
                 '}';
     }
 
@@ -68,7 +81,21 @@ public class Person extends Record {
         System.out.println("Enter a phone number.");
         phoneNumber = Main.askPhone();
 
+        System.out.println("Enter a birthday.");
+        birthdayPerson = Main.askDate();
+
         System.out.println("Enter a comment.");
         contactComment = Main.askString();
+    }
+
+    @Override
+    public LocalDate birthday() {
+        return birthdayPerson;
+    }
+
+    @Override
+    public boolean birthdayDay() {
+        LocalDate now = LocalDate.now();
+        return birthdayPerson.isAfter(now);
     }
 }
